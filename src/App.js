@@ -7,7 +7,6 @@ function App() {
   const [city, setCity] = useState('');
   const [queryCity, setQueryCity] = useState('');
   const [searchType, setSearchType] = useState('');
-  const [tooShortCity, setTooShortCity] = useState();
   const [mapCoord, setMapCoord] = useState({});
 
   useEffect(() => {
@@ -33,7 +32,6 @@ function App() {
             setQueryCity={setQueryCity}
             city={city}
             setCity={setCity}
-            setTooShortCity={setTooShortCity}
             setSearchType={setSearchType}
           />
           <WeatherDescription

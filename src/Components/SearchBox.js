@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
 
-const SearchBox = ({
-  setCity,
-  setQueryCity,
-  setTooShortCity,
-  city,
-  setSearchType
-}) => {
-  const [active, setActive] = useState(false);
-
+const SearchBox = ({ setCity, setQueryCity, city, setSearchType }) => {
+  const [tooShortCity, setTooShortCity] = useState();
   const handleCityChange = e => setCity(e.target.value.toLowerCase());
 
   const handleCitySubmit = (city, tooShortCityLength) => {
@@ -33,34 +26,21 @@ const SearchBox = ({
     }
   };
 
-  const handleFocus = () => {
-    setActive(true);
-  };
-
-  const handleBlur = () => {
-    if (!city) {
-      setActive(false);
-    }
-  };
-
   return (
     <div className="pl-3 pr-4 search-box pb-6 flex justify-center items-center">
-      <label
-        className={active ? 'label-active label-custom' : 'label-custom'}
-        htmlFor="city"
-      >
+      <label className="label-custom text-base pr-2" htmlFor="city">
         Location
       </label>
-      <input
-        value={city}
-        className="input-custom"
-        onChange={handleCityChange}
-        onKeyDown={handleKeyDown}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        id="city"
-        type="text"
-      ></input>
+      <div>
+        <input
+          value={city}
+          className="input-custom w-48 lg:w-64"
+          onChange={handleCityChange}
+          onKeyDown={handleKeyDown}
+          id="city"
+          type="text"
+        ></input>
+      </div>
       <button
         name="search"
         className="btn"
