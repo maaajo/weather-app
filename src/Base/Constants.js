@@ -44,5 +44,6 @@ export const weatherIconObj = {
   802: 'cloudy-day-3',
   803: 'cloudy-day-2',
   804: 'cloudy-day-1',
-  721: 'cloudy'
+  721: 'cloudy',
+  701: 'cloudy'
 };

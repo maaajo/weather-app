@@ -15,7 +15,7 @@ Leaflet.Icon.Default.mergeOptions({
 
 const LeafletMap = ({ lat, lon, setMapCoord, setSearchType }) => {
   const position = [lat, lon];
-  const [zoom, setZoom] = useState(6);
+  const [zoom, setZoom] = useState(10);
   const handleClick = e => {
     setMapCoord(e.latlng);
     setSearchType('map');
@@ -29,8 +29,9 @@ const LeafletMap = ({ lat, lon, setMapCoord, setSearchType }) => {
       onclick={handleClick}
     >
       <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
+        maxZoom={20}
+        attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
       />
       <Marker position={position}></Marker>
     </Map>
