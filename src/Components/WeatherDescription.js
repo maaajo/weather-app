@@ -66,7 +66,7 @@ const WeatherDescription = ({
                 weatherIconObj[parseInt(weatherData.weather[0].id)]
               }.svg`}
             />
-            <p className="text-lg lg:text-2xl tracking-wide lowercase leading-tight text-center">
+            <p className="text-lg lg:text-2xl tracking-wide lowercase leading-tight text-left lg:text-center">
               {toProperCase(weatherData.weather[0].description)}
             </p>
           </div>

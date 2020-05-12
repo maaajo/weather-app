@@ -3,32 +3,34 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fullhuman/postcss-purgecss": "^2.2.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "autoprefixer": "^9.7.6",
     "dotenv": "^8.2.0",
     "leaflet": "^1.6.0",
-    "npm-run-all": "^4.1.5",
-    "postcss-cli": "^7.1.1",
-    "purgecss": "^2.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-leaflet": "^2.6.3",
-    "react-scripts": "^3.4.1",
-    "tailwindcss": "^1.4.5"
+    "react-scripts": "^3.4.1"
   },
   "scripts": {
-    "start": "npm-run-all -p start:css start:js",
-    "build": "npm-run-all build:css build:js",
-    "start:js": "react-scripts start",
-    "build:js": "react-scripts build",
-    "start:css": "postcss src/tailwind.generated.css -o src/tailwind.css -w",
-    "build:css": "postcss src/tailwind.generated.css -o src/tailwind.css --env production"
+    "build:css": "postcss src/tailwind.css -o src/tailwind.generated.css",
+    "watch:css": "postcss src/tailwind.css -o src/tailwind.generated.css --watch",
+    "env:dev": "cross-env NODE_ENV=development",
+    "env:prod": "cross-env NODE_ENV=production",
+    "react-scripts:start": "sleep 5 && react-scripts start",
+    "react-scripts:build": "react-scripts build",
+    "start": "run-p env:dev watch:css react-scripts:start",
+    "build": "run-s env:prod build:css react-scripts:build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^2.2.0",
+    "autoprefixer": "^9.7.6",
     "babel-eslint": "^10.0.3",
+    "cross-env": "^7.0.2",
+    "cssnano": "^4.1.10",
     "eslint": "^6.8.0",
     "eslint-config-babel": "^9.0.0",
     "eslint-config-prettier": "^6.10.0",
@@ -38,7 +40,11 @@
     "eslint-plugin-react": "^7.18.0",
     "eslint-plugin-react-hooks": "^3.0.0",
     "eslint-plugin-standard": "^4.0.1",
-    "prettier": "^1.19.1"
+    "npm-run-all": "^4.1.5",
+    "postcss-cli": "^7.1.1",
+    "prettier": "^1.19.1",
+    "purgecss": "^2.2.1",
+    "tailwindcss": "^1.4.6"
   },
   "browserslist": {
     "production": [
