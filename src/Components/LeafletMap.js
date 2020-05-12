@@ -29,9 +29,13 @@ const LeafletMap = ({ lat, lon, setMapCoord, setSearchType }) => {
       onclick={handleClick}
     >
       <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        maxZoom={20}
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        url="https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}"
+        maxZoom={18}
+        attribution='Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>'
+        id="mapbox/streets-v11"
+        tileSize={512}
+        zoomOffset={-1}
+        accessToken={process.env.REACT_APP_MAPBOX_KEY}
       />
       <Marker position={position}></Marker>
     </Map>
