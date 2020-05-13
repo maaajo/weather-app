@@ -15,7 +15,8 @@ const WeatherDescription = ({
   setCity,
   mapCoord,
   setMapCoord,
-  language
+  language,
+  units
 }) => {
   const [weatherData, setWeatherData] = useState();
   const { lat, lng } = mapCoord;
@@ -23,9 +24,9 @@ const WeatherDescription = ({
   useEffect(
     function getRequestedWeatherData() {
       const getWeatherData = async searchType => {
-        let endPoint = `/.netlify/functions/token-hider?q=${queryCity}&lang=${language}&units=metric`;
+        let endPoint = `/.netlify/functions/token-hider?q=${queryCity}&lang=${language}&units=${units}`;
         if (searchType === 'map') {
-          endPoint = `/.netlify/functions/token-hider?lat=${lat}&lon=${lng}&lang=${language}&units=metric`;
+          endPoint = `/.netlify/functions/token-hider?lat=${lat}&lon=${lng}&lang=${language}&units=${units}`;
         }
         const response = await fetch(endPoint);
         const data = await response.json();
@@ -45,7 +46,7 @@ const WeatherDescription = ({
         setWeatherData(null);
       }
     },
-    [lat, lng, queryCity, searchType, setCity, language]
+    [lat, lng, queryCity, searchType, setCity, language, units]
   );
 
   if (weatherData) {
@@ -54,10 +55,14 @@ const WeatherDescription = ({
         <div className="weather-description">
           <div className="weather-description__icon flex items-center justify-center px-1">
             <div className="text-2xl tracking-wide text-right">
-              <p>{roundFloat(weatherData.main.temp)}°C</p>
+              <p>
+                {roundFloat(weatherData.main.temp)}°
+                {units === 'metric' ? 'C' : 'F'}
+              </p>
               <p className="text-xs">
                 {translation[`feels-${language}`]}:{' '}
-                {roundFloat(weatherData.main.feels_like)}°C
+                {roundFloat(weatherData.main.feels_like)}°
+                {units === 'metric' ? 'C' : 'F'}
               </p>
             </div>
             <img

@@ -33,9 +33,15 @@ body {
   }
 }
 
-@media (min-width: 1024px) {
+@screen lg {
   #root {
-    width: 41.666667%;
+    @apply w-7/12;
+  }
+}
+
+@screen xl {
+  #root {
+    @apply w-5/12;
   }
 }
 

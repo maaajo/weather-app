@@ -639,6 +639,12 @@ body {
 
 @media (min-width: 1024px) {
   #root {
+    width: 58.333333%;
+  }
+}
+
+@media (min-width: 1280px) {
+  #root {
     width: 41.666667%;
   }
 }
