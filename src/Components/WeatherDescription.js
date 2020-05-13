@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { weatherIconObj } from '../Base/Constants';
+import { weatherIconObj, translation } from '../Base/Constants';
 import {
   toProperCase,
   roundFloat,
@@ -14,7 +14,8 @@ const WeatherDescription = ({
   searchType,
   setCity,
   mapCoord,
-  setMapCoord
+  setMapCoord,
+  language
 }) => {
   const [weatherData, setWeatherData] = useState();
   const { lat, lng } = mapCoord;
@@ -22,9 +23,9 @@ const WeatherDescription = ({
   useEffect(
     function getRequestedWeatherData() {
       const getWeatherData = async searchType => {
-        let endPoint = `/.netlify/functions/token-hider?q=${queryCity}&units=metric`;
+        let endPoint = `/.netlify/functions/token-hider?q=${queryCity}&lang=${language}&units=metric`;
         if (searchType === 'map') {
-          endPoint = `/.netlify/functions/token-hider?lat=${lat}&lon=${lng}&units=metric`;
+          endPoint = `/.netlify/functions/token-hider?lat=${lat}&lon=${lng}&lang=${language}&units=metric`;
         }
         const response = await fetch(endPoint);
         const data = await response.json();
@@ -44,7 +45,7 @@ const WeatherDescription = ({
         setWeatherData(null);
       }
     },
-    [lat, lng, queryCity, searchType, setCity]
+    [lat, lng, queryCity, searchType, setCity, language]
   );
 
   if (weatherData) {
@@ -55,24 +56,26 @@ const WeatherDescription = ({
             <div className="text-2xl tracking-wide text-right">
               <p>{roundFloat(weatherData.main.temp)}°C</p>
               <p className="text-xs">
-                Feels like: {roundFloat(weatherData.main.feels_like)}°C
+                {translation[`feels-${language}`]}:{' '}
+                {roundFloat(weatherData.main.feels_like)}°C
               </p>
             </div>
             <img
               className="w-20 h-20"
-              alt={weatherData.weather[0].descriptionn}
+              alt={weatherData.weather[0].description}
               title="weather-icon"
               src={`../icons/weather/${
                 weatherIconObj[parseInt(weatherData.weather[0].id)]
               }.svg`}
             />
-            <p className="text-lg lg:text-2xl tracking-wide lowercase leading-tight text-left lg:text-center">
+            <p className="description text-lg lg:text-2xl tracking-wide lowercase leading-tight text-left lg:text-center lg:max-w-full">
               {toProperCase(weatherData.weather[0].description)}
             </p>
           </div>
           <div className="flex justify-center mb-4">
             <p className="inline-block lowercase tracking-wider">
-              Local time: {getLocalTime(weatherData.timezone)}
+              {translation[`time-${language}`]}:{' '}
+              {getLocalTime(weatherData.timezone)}
             </p>
           </div>
           <div className="weather-description__details flex justify-evenly sm:justify-center mb-4">
@@ -83,7 +86,7 @@ const WeatherDescription = ({
                 alt="sunrise"
               />
               <p className="text-sm lg:text-base">
-                Sunrise:{' '}
+                {translation[`sunrise-${language}`]}:{' '}
                 {getLocalTime(weatherData.timezone, weatherData.sys.sunrise)}
               </p>
             </div>
@@ -94,7 +97,7 @@ const WeatherDescription = ({
                 alt="sunrise"
               />
               <p className="text-sm lg:text-base">
-                Sunset:{' '}
+                {translation[`sunset-${language}`]}:{' '}
                 {getLocalTime(weatherData.timezone, weatherData.sys.sunset)}
               </p>
             </div>

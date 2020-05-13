@@ -608,6 +608,10 @@ video {
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
 
+.description {
+  max-width: 135px;
+}
+
 body {
   --bg-opacity: 1;
   background-color: #ebf4ff;

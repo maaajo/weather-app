@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
+import { translation } from '../Base/Constants';
 
-const SearchBox = ({ setCity, setQueryCity, city, setSearchType }) => {
+const SearchBox = ({
+  setCity,
+  setQueryCity,
+  city,
+  setSearchType,
+  language
+}) => {
   const [tooShortCity, setTooShortCity] = useState();
   const handleCityChange = e => setCity(e.target.value.toLowerCase());
 
@@ -29,7 +36,7 @@ const SearchBox = ({ setCity, setQueryCity, city, setSearchType }) => {
   return (
     <div className="pl-3 pr-4 search-box pb-6 flex justify-center items-center">
       <label className="label-custom text-base pr-2" htmlFor="city">
-        Location
+        {translation[`location-${language}`]}
       </label>
       <div>
         <input

@@ -47,3 +47,16 @@ export const weatherIconObj = {
   721: 'cloudy',
   701: 'cloudy'
 };
+
+export const translation = {
+  'location-en': 'location',
+  'location-pl': 'miejsce',
+  'feels-en': 'feels like',
+  'feels-pl': 'odczuwalna',
+  'time-en': 'local time',
+  'time-pl': 'czas miejscowy',
+  'sunrise-en': 'sunrise',
+  'sunrise-pl': 'wschód',
+  'sunset-en': 'sunset',
+  'sunset-pl': 'zachód'
+};
