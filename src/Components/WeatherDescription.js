@@ -19,11 +19,13 @@ const WeatherDescription = ({
   units
 }) => {
   const [weatherData, setWeatherData] = useState();
+  const [loading, setLoading] = useState(false);
   const { lat, lng } = mapCoord;
 
   useEffect(
     function getRequestedWeatherData() {
       const getWeatherData = async searchType => {
+        setLoading(true);
         let endPoint = `/.netlify/functions/token-hider?q=${queryCity}&lang=${language}&units=${units}`;
         if (searchType === 'map') {
           endPoint = `/.netlify/functions/token-hider?lat=${lat}&lon=${lng}&lang=${language}&units=${units}`;
@@ -34,6 +36,7 @@ const WeatherDescription = ({
           setCity(data.name.toLowerCase() || '');
         }
         setWeatherData(data);
+        setLoading(false);
       };
 
       if (
@@ -55,15 +58,23 @@ const WeatherDescription = ({
         <div className="weather-description">
           <div className="weather-description__icon flex items-center justify-center px-1">
             <div className="text-2xl tracking-wide text-right">
-              <p>
-                {roundFloat(weatherData.main.temp)}°
-                {units === 'metric' ? 'C' : 'F'}
-              </p>
-              <p className="text-xs">
-                {translation[`feels-${language}`]}:{' '}
-                {roundFloat(weatherData.main.feels_like)}°
-                {units === 'metric' ? 'C' : 'F'}
-              </p>
+              {loading ? (
+                <img src="../icons/loading.svg" alt="loading" title="loading" />
+              ) : (
+                <p>
+                  {roundFloat(weatherData.main.temp)}°
+                  {units === 'metric' ? 'C' : 'F'}
+                </p>
+              )}
+              {loading ? (
+                <img src="../icons/loading.svg" alt="loading" title="loading" />
+              ) : (
+                <p className="text-xs">
+                  {translation[`feels-${language}`]}:{' '}
+                  {roundFloat(weatherData.main.feels_like)}°
+                  {units === 'metric' ? 'C' : 'F'}
+                </p>
+              )}
             </div>
             <img
               className="w-20 h-20"
@@ -73,9 +84,13 @@ const WeatherDescription = ({
                 weatherIconObj[parseInt(weatherData.weather[0].id)]
               }.svg`}
             />
-            <p className="description text-lg lg:text-2xl tracking-wide lowercase leading-tight text-center lg:text-center lg:max-w-full">
-              {toProperCase(weatherData.weather[0].description)}
-            </p>
+            {loading ? (
+              <img src="../icons/loading.svg" alt="loading" title="loading" />
+            ) : (
+              <p className="description text-base lg:text-2xl tracking-wide lowercase leading-tight text-center lg:text-center lg:max-w-full">
+                {toProperCase(weatherData.weather[0].description)}
+              </p>
+            )}
           </div>
           <div className="flex justify-center mb-4">
             <p className="inline-block lowercase tracking-wider">
