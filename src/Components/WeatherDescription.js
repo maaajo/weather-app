@@ -73,7 +73,7 @@ const WeatherDescription = ({
                 weatherIconObj[parseInt(weatherData.weather[0].id)]
               }.svg`}
             />
-            <p className="description text-lg lg:text-2xl tracking-wide lowercase leading-tight text-left lg:text-center lg:max-w-full">
+            <p className="description text-lg lg:text-2xl tracking-wide lowercase leading-tight text-center lg:text-center lg:max-w-full">
               {toProperCase(weatherData.weather[0].description)}
             </p>
           </div>
@@ -111,6 +111,7 @@ const WeatherDescription = ({
             {...weatherData.coord}
             setMapCoord={setMapCoord}
             setSearchType={setSearchType}
+            language={language}
           />
         </div>
       );

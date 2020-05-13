@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Leaflet from 'leaflet';
+import Control from 'react-leaflet-control';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -13,7 +14,7 @@ Leaflet.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
-const LeafletMap = ({ lat, lon, setMapCoord, setSearchType }) => {
+const LeafletMap = ({ lat, lon, setMapCoord, setSearchType, language }) => {
   const position = [lat, lon];
   const [zoom, setZoom] = useState(10);
   const handleClick = e => {
@@ -38,6 +39,15 @@ const LeafletMap = ({ lat, lon, setMapCoord, setSearchType }) => {
         accessToken={process.env.REACT_APP_MAPBOX_KEY}
       />
       <Marker position={position}></Marker>
+      <Control position="topright">
+        <div className="map-info-box bg-gray-700 bg-opacity-75 p-2 rounded-lg font-display text-gray-200 text-xs font-semibold text-center lg:max-w-full">
+          {language === 'en' ? (
+            <p>tap to check weather in new location</p>
+          ) : (
+            <p>dotknij, żeby sprawdzić pogodę w nowym miejscu</p>
+          )}
+        </div>
+      </Control>
     </Map>
   );
 };

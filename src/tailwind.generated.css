@@ -609,7 +609,7 @@ video {
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
 
 .description {
-  max-width: 135px;
+  max-width: 110px;
 }
 
 body {
@@ -620,6 +620,10 @@ body {
   display: flex;
   justify-content: center;
   margin-top: 2rem;
+}
+
+.map-info-box {
+  max-width: 200px;
 }
 
 #root {
