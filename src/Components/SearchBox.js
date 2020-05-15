@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { translation } from '../Base/Constants';
 
 const SearchBox = ({
@@ -9,7 +9,9 @@ const SearchBox = ({
   language
 }) => {
   const [tooShortCity, setTooShortCity] = useState();
-  const handleCityChange = e => setCity(e.target.value.toLowerCase());
+  const handleCityChange = e => {
+    setCity(e.target.value.toLowerCase());
+  };
 
   const handleCitySubmit = (city, tooShortCityLength) => {
     setQueryCity(city);
@@ -20,8 +22,6 @@ const SearchBox = ({
   const handleKeyDown = e => {
     if (e.key.toLowerCase() === 'enter' && city.length >= 3) {
       handleCitySubmit(city, false);
-    } else if (e.key.toLowerCase() === 'enter' && city.length < 3) {
-      handleCitySubmit('', true);
     }
   };
 
@@ -33,24 +33,43 @@ const SearchBox = ({
     }
   };
 
+  useEffect(() => {
+    if (city.length > 0 && city.length < 3) {
+      setTooShortCity(true);
+    } else {
+      setTooShortCity(false);
+    }
+  }, [city, setTooShortCity]);
+
   return (
-    <div className="pl-3 pr-4 search-box pb-6 flex justify-center items-center">
-      <label className="label-custom text-base pr-2" htmlFor="city">
+    <div className="pl-3 pr-4 search-box pb-6 flex justify-center">
+      <label className="label-custom text-base pr-2 mt-2" htmlFor="city">
         {translation[`location-${language}`]}
       </label>
       <div>
         <input
           value={city}
-          className="input-custom w-48 lg:w-64"
+          className={`input-custom w-48 lg:w-64 ${
+            tooShortCity ? 'focus:border-red-600' : null
+          }`}
           onChange={handleCityChange}
           onKeyDown={handleKeyDown}
           id="city"
           type="text"
         ></input>
+        <p
+          className={`text-sm mt-1 w-48 lg:w-64 text-red-600 ${
+            tooShortCity ? 'block' : 'hidden'
+          }`}
+        >
+          {language === 'en'
+            ? 'Location must have at least 3 chars'
+            : 'Miejsce musi zawierać przynajmniej 3 znaki'}
+        </p>
       </div>
       <button
         name="search"
-        className="btn"
+        className="btn flex mt-1"
         onClick={handleSearchClick}
         type="button"
       >
