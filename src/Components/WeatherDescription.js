@@ -7,6 +7,7 @@ import {
   debounce
 } from '../Utils/Utils';
 import LeafletMap from './LeafletMap';
+import Badge from './Badge';
 
 const WeatherDescription = ({
   queryCity,
@@ -62,8 +63,9 @@ const WeatherDescription = ({
                 <img src="../icons/loading.svg" alt="loading" title="loading" />
               ) : (
                 <p>
-                  {roundFloat(weatherData.main.temp)}°
-                  {units === 'metric' ? 'C' : 'F'}
+                  {`${roundFloat(weatherData.main.temp)}°${
+                    units === 'metric' ? 'C' : 'F'
+                  }`}
                 </p>
               )}
               {loading ? (
@@ -99,28 +101,20 @@ const WeatherDescription = ({
             </p>
           </div>
           <div className="weather-description__details flex justify-evenly sm:justify-center mb-4">
-            <div className="flex justify-center items-center badge p-1 sm:mr-4 lg:p-2">
-              <img
-                className="w-10 h-10 mr-1"
-                src="../icons/weather/sunrise.svg"
-                alt="sunrise"
-              />
-              <p className="text-sm lg:text-base">
-                {translation[`sunrise-${language}`]}:{' '}
-                {getLocalTime(weatherData.timezone, weatherData.sys.sunrise)}
-              </p>
-            </div>
-            <div className="flex justify-center items-center badge p-1 lg:p-2">
-              <img
-                className="w-10 h-10 mr-1"
-                src="../icons/weather/sunset.svg"
-                alt="sunrise"
-              />
-              <p className="text-sm lg:text-base">
-                {translation[`sunset-${language}`]}:{' '}
-                {getLocalTime(weatherData.timezone, weatherData.sys.sunset)}
-              </p>
-            </div>
+            <Badge
+              language={language}
+              timezone={weatherData.timezone}
+              time={weatherData.sys.sunrise}
+              iconSrc="../icons/weather/sunrise.svg"
+              alt="sunrise"
+            />
+            <Badge
+              language={language}
+              timezone={weatherData.timezone}
+              time={weatherData.sys.sunset}
+              iconSrc="../icons/weather/sunset.svg"
+              alt="sunset"
+            />
           </div>
           <LeafletMap
             {...weatherData.coord}
