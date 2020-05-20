@@ -9,17 +9,19 @@
     "prettier/react",
     "plugin:react/recommended"
   ],
-  "plugins": ["react", "import", "jsx-a11y", "react-hooks", "prettier"],
+  "plugins": ["react", "import", "jsx-a11y", "react-hooks", "jest", "prettier"],
   "rules": {
     "react/prop-types": 0,
     "no-console": 1,
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "jest/no-disabled-tests": "warn",
     "prettier/prettier": "error"
   },
   "parser": "babel-eslint",
   "env": {
-    "browser": true
+    "browser": true,
+    "jest/globals": true
   },
   "settings": {
     "react": {

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`prop test renders properly 1`] = `
+"<button id=\\"en\\" name=\\"language-en\\" type=\\"button\\" className=\\"tracking-wider hover:underline font-bold\\" onClick={[Function: mockConstructor]}>
+  en
+</button>"
+`;
